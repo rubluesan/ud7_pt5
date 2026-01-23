@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Route;
 
 // home
 Route::get('/', [DefaultController::class, 'home'])->name('home');
-// Dashboard
-Route::get('/dashboard', [DefaultController::class, 'home'])->name('dashboard');
-
 
 Route::get('/cuenta/list', [CuentaController::class, 'list'])->name('cuenta_list');
 Route::get('/cliente/list', [ClienteController::class, 'list'])->name('cliente_list');
 
 Route::middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DefaultController::class, 'home'])->name('dashboard');
+
     // CUENTAS
     Route::match(['get', 'post'], '/cuenta/new', [CuentaController::class, 'new'])->name('cuenta_new');
     Route::get('/cuenta/delete/{id}', [CuentaController::class, 'delete'])->name('cuenta_delete');
