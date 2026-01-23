@@ -8,7 +8,9 @@
 
 @section('content')
     <h1>Listado de clientes</h1>
-    <a href="{{ route('cliente_new') }}">+ Nuevo Cliente</a>
+    @if (Auth::check())
+        <a href="{{ route('cliente_new') }}">+ Nuevo Cliente</a>
+    @endif
 
     @if (session('status'))
         <div>
@@ -32,12 +34,14 @@
                     <td>{{ $cliente->DNI }}</td>
                     <td>{{ $cliente->nombre }}</td>
                     <td>{{ $cliente->apellidos }}</td>
-                    <td>{{ $cliente->fechaN->format("d-m-Y") }}</td>
-                    <td><img src="{{ asset('uploads/imagenes/'.$cliente->imagen) }}" alt=""></td>
-                    <td>
-                        <a href="{{ route('cliente_edit', ['id' => $cliente->id]) }}">Editar</a>
-                        <a href="{{ route('cliente_delete', ['id' => $cliente->id]) }}">Eliminar</a>
-                    </td>
+                    <td>{{ $cliente->fechaN->format('d-m-Y') }}</td>
+                    <td><img src="{{ asset('uploads/imagenes/' . $cliente->imagen) }}" alt=""></td>
+                    @if (Auth::check())
+                        <td>
+                            <a href="{{ route('cliente_edit', ['id' => $cliente->id]) }}">Editar</a>
+                            <a href="{{ route('cliente_delete', ['id' => $cliente->id]) }}">Eliminar</a>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

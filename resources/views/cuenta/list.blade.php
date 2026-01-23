@@ -8,7 +8,9 @@
 
 @section('content')
     <h1>Listado de cuentas</h1>
-    <a href="{{ route('cuenta_new') }}">+ Nueva cuenta</a>
+    @if (Auth::check())
+        <a href="{{ route('cuenta_new') }}">+ Nueva cuenta</a>
+    @endif
 
     @if (session('status'))
         <div>
@@ -37,10 +39,13 @@
                         <td></td>
                     @endempty
 
-                    <td>
-                        <a href="{{ route('cuenta_edit', ['id' => $cuenta->id]) }}">Editar</a>
-                        <a href="{{ route('cuenta_delete', ['id' => $cuenta->id]) }}">Eliminar</a>
-                    </td>
+                    @if (Auth::check())
+                        <td>
+                            <a href="{{ route('cuenta_edit', ['id' => $cuenta->id]) }}">Editar</a>
+                            <a href="{{ route('cuenta_delete', ['id' => $cuenta->id]) }}">Eliminar</a>
+                        </td>
+                    @endif
+
                 </tr>
             @endforeach
         </tbody>
